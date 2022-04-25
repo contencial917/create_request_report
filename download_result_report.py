@@ -104,8 +104,7 @@ if __name__ == '__main__':
     year = lastmonth.strftime("%Y")
     month = lastmonth.strftime("%m")
 
-    requestReportPath = os.environ['REQUEST_REPORT_PATH']
-    requestReportPath += f'{year}/{month}'
+    requestReportPath = f'{os.environ['REQUEST_REPORT_PATH']}/{year}/{month}'
     os.makedirs(requestReportPath, exist_ok=True)
 
     defaultUrl = "https://google.co.jp/"

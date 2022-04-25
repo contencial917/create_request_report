@@ -99,8 +99,7 @@ if __name__ == '__main__':
     year = lastmonth.strftime("%Y")
     month = lastmonth.strftime("%m")
 
-    requestReportPath = os.environ['REQUEST_REPORT_PATH']
-    requestReportPath += f'{year}/{month}'
+    requestReportPath = f'{os.environ['REQUEST_REPORT_PATH']}/{year}/{month}'
     os.makedirs(requestReportPath, exist_ok=True)
 
     defaultUrl = "https://google.co.jp/"
@@ -119,7 +118,7 @@ if __name__ == '__main__':
         for domain in domains:
             name = config[domain]['NAME']
             client = config[domain]['CLIENT']
-            url = f"{os.environ['RANK_REPORT_PATH']}{year}/{month}/{domain}.html"
+            url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}.html"
             driver.get(f"file:///{url}")
             sleep(10)
 

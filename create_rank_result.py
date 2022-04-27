@@ -118,11 +118,13 @@ if __name__ == '__main__':
         for domain in domains:
             name = config[domain]['NAME']
             client = config[domain]['CLIENT']
+            if client == "株式会社デブリ":
+                continue
             url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}.html"
             driver.get(f"file:///{url}")
             sleep(10)
 
-            filePath = f"./pdf/順位計測結果.pdf"
+            filePath = f"{downloadsDirPath}/順位計測結果.pdf"
             execute_pdf_download(driver, filePath, 0)
             sleep(3)
 

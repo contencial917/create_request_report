@@ -45,11 +45,11 @@ if __name__ == '__main__':
         downloadsDirPath = os.environ["GDRIVE_REQUEST"]
 
         for client in clients:
-            fileName = f"{client}御中_ご請求書_{year}_{month}"
+            fileName = f"{client}御中_ご請求書_{year}_{month}.pdf"
             filePath = f"{downloadsDirPath}/{year}{month}/{fileName}"
             clientPath = f'{requestReportPath}/{client}/'
             os.makedirs(clientPath, exist_ok=True)
-            clientPath += f'{fileName}.pdf'
+            clientPath += f'{fileName}'
             shutil.move(filePath, clientPath)
 
         exit(0)

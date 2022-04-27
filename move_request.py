@@ -45,7 +45,10 @@ if __name__ == '__main__':
         downloadsDirPath = os.environ["GDRIVE_REQUEST"]
 
         for client in clients:
-            fileName = f"{client}御中_ご請求書_{year}_{month}.pdf"
+            if not client == '渡辺 千左子':
+                fileName = f"{client}御中_ご請求書_{year}_{month}.pdf"
+            else:
+                fileName = f"{client}様_ご請求書_{year}_{month}.pdf"
             filePath = f"{downloadsDirPath}/{year}{month}/{fileName}"
             clientPath = f'{requestReportPath}/{client}/'
             os.makedirs(clientPath, exist_ok=True)

@@ -142,7 +142,7 @@ if __name__ == '__main__':
             modify_excel(filePath)
             clientPath = f'{requestReportPath}/{client}/'
             os.makedirs(clientPath, exist_ok=True)
-            clientPath += fileName
+            clientPath += f'{fileName}_{year}_{month}'
             shutil.move(filePath, clientPath)
 
         driver.close()

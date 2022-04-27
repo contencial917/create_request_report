@@ -50,9 +50,9 @@ if __name__ == '__main__':
             else:
                 fileName = f"{client}様_ご請求書_{year}_{month}.pdf"
             filePath = f"{downloadsDirPath}/{year}{month}/{fileName}"
-            clientPath = f'{requestReportPath}/{client}/'
+            clientPath = f"{requestReportPath}/{client}/"
             os.makedirs(clientPath, exist_ok=True)
-            clientPath += f'{fileName}'
+            clientPath += f"{fileName}"
             shutil.move(filePath, clientPath)
 
         exit(0)

@@ -129,7 +129,7 @@ if __name__ == '__main__':
         for domain in domains:
             if domain == "wakigacenter.com":
                 name = "リオラビューティークリニック子供わきが"
-                url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}_kodomo_wakiga.html"
+                url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}_kodomo-wakiga.html"
                 execute_pdf_download(driver, config, url, name, 0)
                 logger.debug(f"pdf download comlete: {name}")
 

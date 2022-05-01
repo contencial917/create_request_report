@@ -65,9 +65,19 @@ def PrintSetUp(downloadsDirPath):
     chopt.add_argument('--kiosk-printing') #印刷ダイアログが開くと、印刷ボタンを無条件に押す。
     return chopt
 
-def execute_pdf_download(driver, filePath, cnt):
+def execute_pdf_download(driver, url, filePath, clientPath, cnt):
     try:
+        driver.get(f"file:///{url}")
+        sleep(10)
         driver.execute_script('return window.print()')
+        sleep(3)
+        logger.debug(f"pdf download comlete: {name}")
+
+        clientPath = f'{requestReportPath}/{client}/'
+        os.makedirs(clientPath, exist_ok=True)
+        clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
+        shutil.move(filePath, clientPath)
+        logger.debug(f"Finish moving the pdf file: {clientPath}") 
     except Exception as err:
         if os.path.exists(filePath) or cnt > 3:
             return
@@ -114,26 +124,25 @@ if __name__ == '__main__':
         config = configparser.ConfigParser()
         config.read_file(codecs.open("domainInfo.ini", "r", "utf8"))
         domains = config.sections()
+        filePath = f"{downloadsDirPath}/順位計測結果.pdf"
 
         for domain in domains:
-            name = config[domain]['NAME']
             client = config[domain]['CLIENT']
-            if client == "株式会社デブリ":
-                continue
-            url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}.html"
-            driver.get(f"file:///{url}")
-            sleep(10)
-
-            filePath = f"{downloadsDirPath}/順位計測結果.pdf"
-            execute_pdf_download(driver, filePath, 0)
-            sleep(3)
-
-            logger.debug(f"pdf download comlete: {name}")
             clientPath = f'{requestReportPath}/{client}/'
             os.makedirs(clientPath, exist_ok=True)
             clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
-            shutil.move(filePath, clientPath)
-            logger.debug(f"Finish moving the pdf file: {clientPath}")
+ 
+            if domain == "wakigacenter.com":
+                name = "リオラビューティークリニック子供わきが"
+                client = config[domain]['CLIENT']
+                url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}_kodomo_wakiga.html"
+                execute_pdf_download(driver, url, filePath, clientPath, 0)
+
+            name = config[domain]['NAME']
+            client = config[domain]['CLIENT']
+            url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}.html"
+            execute_pdf_download(driver, url, filePath, clientPath, 0)
+            logger.debug(f"pdf download comlete: {name}")
 
         driver.close()
         driver.quit()

@@ -68,14 +68,9 @@ def PrintSetUp(downloadsDirPath):
 def execute_pdf_download(driver, url, filePath, clientPath, cnt):
     try:
         driver.get(f"file:///{url}")
-        sleep(10)
+        sleep(7)
         driver.execute_script('return window.print()')
         sleep(3)
-        logger.debug(f"pdf download comlete: {name}")
-
-        clientPath = f'{requestReportPath}/{client}/'
-        os.makedirs(clientPath, exist_ok=True)
-        clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         shutil.move(filePath, clientPath)
         logger.debug(f"Finish moving the pdf file: {clientPath}") 
     except Exception as err:
@@ -149,5 +144,5 @@ if __name__ == '__main__':
 
         exit(0)
     except Exception as err:
-        logger.debug(f'download_result_report: {err}')
+        logger.debug(f'create_rank_result: {err}')
         exit(1)

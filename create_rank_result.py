@@ -127,11 +127,6 @@ if __name__ == '__main__':
         filePath = f"{downloadsDirPath}/順位計測結果.pdf"
 
         for domain in domains:
-            client = config[domain]['CLIENT']
-            clientPath = f'{requestReportPath}/{client}/'
-            os.makedirs(clientPath, exist_ok=True)
-            clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
- 
             if domain == "wakigacenter.com":
                 name = "リオラビューティークリニック子供わきが"
                 url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}_kodomo_wakiga.html"

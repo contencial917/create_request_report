@@ -65,8 +65,13 @@ def PrintSetUp(downloadsDirPath):
     chopt.add_argument('--kiosk-printing') #印刷ダイアログが開くと、印刷ボタンを無条件に押す。
     return chopt
 
-def execute_pdf_download(driver, url, filePath, clientPath, cnt):
+def execute_pdf_download(driver, config, url, name, cnt):
     try:
+        filePath = f"{downloadsDirPath}/順位計測結果.pdf"
+        client = config[domain]['CLIENT']
+        clientPath = f'{requestReportPath}/{client}/'
+        os.makedirs(clientPath, exist_ok=True)
+        clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         driver.get(f"file:///{url}")
         sleep(7)
         driver.execute_script('return window.print()')
@@ -129,14 +134,13 @@ if __name__ == '__main__':
  
             if domain == "wakigacenter.com":
                 name = "リオラビューティークリニック子供わきが"
-                client = config[domain]['CLIENT']
                 url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}_kodomo_wakiga.html"
-                execute_pdf_download(driver, url, filePath, clientPath, 0)
+                execute_pdf_download(driver, config, url, name, 0)
+                logger.debug(f"pdf download comlete: {name}")
 
             name = config[domain]['NAME']
-            client = config[domain]['CLIENT']
             url = f"{os.environ['RANK_REPORT_PATH']}/{year}/{month}/{domain}.html"
-            execute_pdf_download(driver, url, filePath, clientPath, 0)
+            execute_pdf_download(driver, config, url, name, 0)
             logger.debug(f"pdf download comlete: {name}")
 
         driver.close()

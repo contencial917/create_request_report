@@ -73,7 +73,7 @@ def execute_pdf_download(driver, config, url, name, cnt):
         os.makedirs(clientPath, exist_ok=True)
         clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         driver.get(f"file:///{url}")
-        sleep(7)
+        sleep(10)
         driver.execute_script('return window.print()')
         sleep(3)
         shutil.move(filePath, clientPath)

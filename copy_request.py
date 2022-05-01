@@ -53,7 +53,7 @@ if __name__ == '__main__':
             clientPath = f"{requestReportPath}/{client}/"
             os.makedirs(clientPath, exist_ok=True)
             clientPath += f"{fileName}"
-            shutil.move(filePath, clientPath)
+            shutil.copy(filePath, clientPath)
 
         exit(0)
     except Exception as err:

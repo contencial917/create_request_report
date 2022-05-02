@@ -100,7 +100,7 @@ if __name__ == '__main__':
             filePath = f"{downloadsDirPath}/{fileName}.xlsx"
             logger.debug(f"download: {filePath}")
             modify_excel(filePath, f"{year}{month}")
-            clientPath = f"{requestReportPath}/{client}/{client}"
+            clientPath = f"{requestReportPath}/{client}/{client}/"
             os.makedirs(clientPath, exist_ok=True)
             clientPath += f"{fileName}_{year}_{month}.xlsx"
             shutil.move(filePath, clientPath)

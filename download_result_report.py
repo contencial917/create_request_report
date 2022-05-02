@@ -29,12 +29,12 @@ logger.addHandler(handler)
 logger.propagate = False
 
 ### functions ###
-def modify_excel(fileName):
+def modify_excel(fileName, sheetName):
     wb = openpyxl.load_workbook(fileName)
 
-    for sheet in wb:
-        if wb.index(sheet) != 0:
-            wb.remove(sheet)
+    for ws in wb:
+        if ws.title != sheetName:
+            wb.remove(ws)
 
     wb.save(fileName)
 
@@ -96,11 +96,11 @@ if __name__ == '__main__':
             url = f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=xlsx"
             driver.get(url)
             sleep(3)
-            fileName = f"{client}御中_成果表"
+            fileName = f"{client}_成果表"
             filePath = f"{downloadsDirPath}/{fileName}.xlsx"
             logger.debug(f"download: {filePath}")
-            modify_excel(filePath)
-            clientPath = f"{requestReportPath}/{client}/"
+            modify_excel(filePath, {year}{month})
+            clientPath = f"{requestReportPath}/{client}/{client}"
             os.makedirs(clientPath, exist_ok=True)
             clientPath += f"{fileName}_{year}_{month}.xlsx"
             shutil.move(filePath, clientPath)

@@ -69,7 +69,7 @@ def execute_pdf_download(driver, config, url, name, cnt):
     try:
         filePath = f"{downloadsDirPath}/順位計測結果.pdf"
         client = config[domain]['CLIENT']
-        clientPath = f'{requestReportPath}/{client}/'
+        clientPath = f'{requestReportPath}/{client}/{client}'
         os.makedirs(clientPath, exist_ok=True)
         clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         driver.get(f"file:///{url}")

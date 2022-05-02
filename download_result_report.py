@@ -99,7 +99,7 @@ if __name__ == '__main__':
             fileName = f"{client}_成果表"
             filePath = f"{downloadsDirPath}/{fileName}.xlsx"
             logger.debug(f"download: {filePath}")
-            modify_excel(filePath, {year}{month})
+            modify_excel(filePath, f"{year}{month}")
             clientPath = f"{requestReportPath}/{client}/{client}"
             os.makedirs(clientPath, exist_ok=True)
             clientPath += f"{fileName}_{year}_{month}.xlsx"

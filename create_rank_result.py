@@ -73,12 +73,14 @@ def execute_pdf_download(driver, config, url, name, cnt):
         os.makedirs(clientPath, exist_ok=True)
         clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         driver.get(f"file:///{url}")
-        sleep(8)
-        driver.execute_script('return window.print()')
+        WebDriverWait(driver, 60).until(EC.presence_of_all_elements_located)
+        driver.set_script_timeout(1000)
+        driver.execute_script('return window.print();')
         sleep(3)
         shutil.move(filePath, clientPath)
         logger.debug(f"Finish moving the pdf file: {clientPath}") 
     except Exception as err:
+        logger.debug(f'create_rank_result: {err}')
         if os.path.exists(filePath) or cnt > 3:
             return
         else:

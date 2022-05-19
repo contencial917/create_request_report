@@ -74,6 +74,7 @@ def execute_pdf_download(driver, config, url, name, cnt):
         clientPath += f"{name}_順位計測結果_{year}_{month}.pdf"
         driver.get(f"file:///{url}")
         WebDriverWait(driver, 60).until(EC.presence_of_all_elements_located)
+        sleep(2)
         driver.set_script_timeout(1000)
         driver.execute_script('return window.print();')
         sleep(3)
